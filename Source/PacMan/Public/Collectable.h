@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
 #include "Collectable.generated.h"
 
@@ -25,10 +26,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
     UPROPERTY(EditDefaultsOnly, Category = Collectable)
-	UStaticMeshComponent *Mesh;
+	UStaticMeshComponent *MeshComponent;
 
     UPROPERTY(EditDefaultsOnly, Category = Collectable)
-    USphereComponent *BaseCollisionComponent;
+    USphereComponent *CollisionComponent;
 
     UPROPERTY(EditAnywhere, Category = Collectable)
     bool bIsSupperEnemy;
