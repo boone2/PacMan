@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/SphereComponent.h"
 #include "Collectable.generated.h"
 
 UCLASS()
@@ -23,6 +24,12 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	
-	
+    UPROPERTY(EditDefaultsOnly, Category = Collectable)
+	UStaticMeshComponent *Mesh;
+
+    UPROPERTY(EditDefaultsOnly, Category = Collectable)
+    USphereComponent *BaseCollisionComponent;
+
+    UPROPERTY(EditAnywhere, Category = Collectable)
+    bool bIsSupperEnemy;
 };
