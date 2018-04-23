@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "PacManGameModeBase.h"
 #include "PacManCharacter.generated.h"
 
 UCLASS()
@@ -26,8 +27,18 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+    // 角色移动
 private:
     void MoveX(float AxisValue);
     void MoveY(float AxisValue);
 	FVector Velocity;
+
+    // 流程控制
+public:
+    void ReStart();
+    void NewGame();
+    void Pause();
+
+private:
+    APacManGameModeBase *GameMode;
 };
