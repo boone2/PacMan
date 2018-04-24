@@ -7,6 +7,7 @@
 #include "Materials/Material.h"
 #include "TimerManager.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "PacManCharacter.h"
 
 
 // Sets default values
@@ -40,7 +41,8 @@ void AEnemy::BeginPlay()
     Super::BeginPlay();
 
     DefaultMaterial = Body->GetMaterial(0);
-    SetVulnerable();
+
+    GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::OnCollision);
 }
 
 // Called every frame
@@ -73,4 +75,42 @@ void AEnemy::SetInvulnerable()
     bIsVulnerable = false;
     Body->SetMaterial(0, DefaultMaterial);
     GetCharacterMovement()->MaxWalkSpeed = 150;
+}
+
+void AEnemy::SetMove(bool MoveIt)
+{
+}
+
+void AEnemy::OnKilled()
+{
+    if (bIsDead)
+        return;
+    bIsDead = true;
+    GetCharacterMovement()->MaxWalkSpeed = 300;
+}
+
+void AEnemy::ReArm()
+{
+    bIsDead = false;
+    if (bIsVulnerable)
+        SetInvulnerable();
+    else
+        GetCharacterMovement()->MaxWalkSpeed = 150;
+}
+
+void AEnemy::OnCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+                         int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+    if (OtherActor->IsA(APacManCharacter::StaticClass()))
+    {
+        if (bIsVulnerable)
+        {
+            OnKilled();
+        }
+        else
+        {
+            auto PacMan = Cast<APacManCharacter>(OtherActor);
+            PacMan->OnKilled();
+        }
+    }
 }

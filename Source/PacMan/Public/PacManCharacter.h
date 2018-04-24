@@ -34,18 +34,20 @@ private:
     FVector Velocity;
 
     // 流程控制
+public:
+    void OnKilled();
 private:
     void ReStart();
     void NewGame();
     void Pause();
-    void Kill();
 
-    APacManGameModeBase *GameMode;
+    APacManGameModeBase* GameMode;
 
     // 碰撞
 private:
     UFUNCTION()
-    void OnCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool  bFromSweep, const FHitResult& SweepResult);
+    void OnCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+                     int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
     // 角色属性
 private:

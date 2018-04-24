@@ -86,7 +86,7 @@ void APacManCharacter::Pause()
     }
 }
 
-void APacManCharacter::Kill()
+void APacManCharacter::OnKilled()
 {
     if (--HealthPoint == 0)
     {
