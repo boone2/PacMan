@@ -3,16 +3,32 @@
 #include "EnemyController.h"
 #include "AI/Navigation/NavigationSystem.h"
 #include "Enemy.h"
-
+#include "TimerManager.h"
 
 void AEnemyController::Possess(APawn* InPawn)
 {
     Super::Possess(InPawn);
     Bot = Cast<AEnemy>(InPawn);
+    HomeLocation = Bot->GetActorLocation();
+    SearchNewPoint();
 }
 
 void AEnemyController::OnMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result)
 {
+    if (!Bot->IsDead())
+        SearchNewPoint();
+}
+
+void AEnemyController::GoHome()
+{
+    MoveToLocation(HomeLocation);
+    GetWorldTimerManager().SetTimer(DeadTimer, this, &AEnemyController::ReArm, 5);
+}
+
+void AEnemyController::ReArm()
+{
+    GetWorldTimerManager().ClearTimer(DeadTimer);
+    Bot->ReArm();
 }
 
 void AEnemyController::SearchNewPoint()
@@ -22,7 +38,7 @@ void AEnemyController::SearchNewPoint()
     {
         const float SearchRadius = 1000;
         FNavLocation RandomPoint;
-        bool bIsFound = NavMesh->GetRandomReachablePointInRadius(Bot->GetActorLocation(), SearchRadius, RandomPoint);
+        const bool bIsFound = NavMesh->GetRandomReachablePointInRadius(Bot->GetActorLocation(), SearchRadius, RandomPoint);
         if (bIsFound)
         {
             MoveToLocation(RandomPoint);

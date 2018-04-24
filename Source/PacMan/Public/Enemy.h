@@ -41,15 +41,25 @@ private:
     FTimerHandle VulnerableTimer;
 
     // Liftcycle
+public:
+    void ReArm();
+
 private:
     void SetMove(bool MoveIt);
     void OnKilled();
-    void ReArm();
     void OnCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
                      int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
     // Properties
+public:
+    bool IsDead() const;
+
 private:
     bool bIsVulnerable = false;
     bool bIsDead = false;
 };
+
+FORCEINLINE bool AEnemy::IsDead() const
+{
+    return bIsDead;
+}
