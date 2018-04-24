@@ -23,6 +23,9 @@ class PACMAN_API APacManGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+private:
+    virtual void BeginPlay();
+
 public:
     EGameState GetCurrentState() const;
     void SetCurrentState(EGameState State);

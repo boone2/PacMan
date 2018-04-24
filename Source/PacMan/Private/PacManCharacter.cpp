@@ -2,6 +2,8 @@
 
 #include "PacManCharacter.h"
 #include "Kismet/GamePlayStatics.h"
+#include "Components/CapsuleComponent.h"
+#include "Collectable.h"
 
 
 // Sets default values
@@ -17,7 +19,8 @@ void APacManCharacter::BeginPlay()
 {
     Super::BeginPlay();
 
-
+    GameMode = Cast<APacManGameModeBase>(UGameplayStatics::GetGameMode(this));
+    GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &APacManCharacter::OnCollision);
 }
 
 // Called every frame
@@ -25,7 +28,6 @@ void APacManCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
-    GameMode = Cast<APacManGameModeBase>(UGameplayStatics::GetGameMode(this));
 }
 
 // Called to bind functionality to input
@@ -73,6 +75,17 @@ void APacManCharacter::Pause()
     else if (GameMode->GetCurrentState() == EGameState::Pause)
     {
         GameMode->SetCurrentState(EGameState::Playing);
+    }
+}
+
+void APacManCharacter::OnCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
+{
+    if (GameMode->GetCurrentState() == EGameState::Playing)
+    {
+        if (OtherActor->IsA(ACollectable::StaticClass()))
+        {
+            OtherActor->Destroy();
+        }
     }
 }
 

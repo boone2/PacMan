@@ -5,3 +5,8 @@
 
 
 
+void APacManGameModeBase::BeginPlay()
+{
+    Super::BeginPlay();
+    SetCurrentState(EGameState::Playing);
+}
