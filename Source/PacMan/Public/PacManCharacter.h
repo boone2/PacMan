@@ -45,4 +45,9 @@ private:
 private:
     UFUNCTION()
     void OnCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool  bFromSweep, const FHitResult& SweepResult);
+
+    // ½ÇÉ«ÊôÐÔ
+private:
+    int CollectablesNumToEat;
+    int HealthPoint;
 };

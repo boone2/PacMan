@@ -4,6 +4,7 @@
 #include "Kismet/GamePlayStatics.h"
 #include "Components/CapsuleComponent.h"
 #include "Collectable.h"
+#include "EngineUtils.h"
 
 
 // Sets default values
@@ -21,6 +22,11 @@ void APacManCharacter::BeginPlay()
 
     GameMode = Cast<APacManGameModeBase>(UGameplayStatics::GetGameMode(this));
     GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &APacManCharacter::OnCollision);
+
+    for (TActorIterator<ACollectable> It(GetWorld()); It; ++It)
+    {
+        ++CollectablesNumToEat;
+    }
 }
 
 // Called every frame
@@ -85,6 +91,10 @@ void APacManCharacter::OnCollision(UPrimitiveComponent* OverlappedComponent, AAc
         if (OtherActor->IsA(ACollectable::StaticClass()))
         {
             OtherActor->Destroy();
+            if (--CollectablesNumToEat == 0)
+            {
+                GameMode->SetCurrentState(EGameState::Win);
+            }
         }
     }
 }

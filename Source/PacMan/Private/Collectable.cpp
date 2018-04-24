@@ -26,6 +26,8 @@ ACollectable::ACollectable()
     CollisionComponent->SetSphereRadius(16);
 
     MeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+    SetRootComponent(CollisionComponent);
 }
 
 // Called when the game starts or when spawned
