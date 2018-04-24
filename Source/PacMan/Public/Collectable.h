@@ -25,6 +25,10 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+public:
+    bool IsSupper() const;
+
+private:
     UPROPERTY(EditDefaultsOnly, Category = Collectable)
 	UStaticMeshComponent *MeshComponent;
 
@@ -32,5 +36,10 @@ public:
     USphereComponent *CollisionComponent;
 
     UPROPERTY(EditAnywhere, Category = Collectable)
-    bool bIsSupperEnemy;
+    bool bIsSupper;
 };
+
+FORCEINLINE bool ACollectable::IsSupper() const
+{
+    return bIsSupper;
+}

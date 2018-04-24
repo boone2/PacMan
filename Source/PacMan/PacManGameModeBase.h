@@ -24,14 +24,16 @@ class PACMAN_API APacManGameModeBase : public AGameModeBase
 	GENERATED_BODY()
 	
 private:
-    virtual void BeginPlay();
+    void BeginPlay() override;
 
 public:
     EGameState GetCurrentState() const;
     void SetCurrentState(EGameState State);
+    void SetEnemyVulnerable();
 	
 private:
     EGameState CurrentState;
+    TArray<class AEnemy*> Enemies;
 };
 
 FORCEINLINE EGameState APacManGameModeBase::GetCurrentState() const

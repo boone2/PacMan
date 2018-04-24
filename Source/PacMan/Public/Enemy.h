@@ -32,10 +32,11 @@ private:
     UStaticMeshComponent* Body = nullptr;
 
     // Vulnerable Control
-private:
+public:
     void SetVulnerable();
     void SetInvulnerable();
 
+private:
     UMaterialInterface* DefaultMaterial = nullptr;
     UMaterialInterface* VulnerableMaterial = nullptr;
     FTimerHandle VulnerableTimer;

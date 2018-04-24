@@ -12,14 +12,13 @@ APacManCharacter::APacManCharacter()
 {
     // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
-
 }
 
 // Called when the game starts or when spawned
 void APacManCharacter::BeginPlay()
 {
     Super::BeginPlay();
-    
+
     for (TActorIterator<ACollectable> It(GetWorld()); It; ++It)
     {
         ++CollectablesNumToEat;
@@ -28,14 +27,13 @@ void APacManCharacter::BeginPlay()
     StartPoint = GetActorLocation();
 
     GameMode = Cast<APacManGameModeBase>(UGameplayStatics::GetGameMode(this));
-    GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &APacManCharacter::OnCollision);    
+    GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &APacManCharacter::OnCollision);
 }
 
 // Called every frame
 void APacManCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
-
 }
 
 // Called to bind functionality to input
@@ -98,12 +96,20 @@ void APacManCharacter::OnKilled()
     }
 }
 
-void APacManCharacter::OnCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
+void APacManCharacter::OnCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+                                   UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
+                                   const FHitResult& SweepResult)
 {
     if (GameMode->GetCurrentState() == EGameState::Playing)
     {
-        if (OtherActor->IsA(ACollectable::StaticClass()))
+        ACollectable* Collectable = Cast<ACollectable>(OtherActor);
+        if (Collectable)
         {
+            if (Collectable->IsSupper())
+            {
+                GameMode->SetEnemyVulnerable();
+            }
+
             OtherActor->Destroy();
             if (--CollectablesNumToEat == 0)
             {
@@ -112,4 +118,3 @@ void APacManCharacter::OnCollision(UPrimitiveComponent* OverlappedComponent, AAc
         }
     }
 }
-
