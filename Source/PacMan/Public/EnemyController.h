@@ -14,7 +14,12 @@ class PACMAN_API AEnemyController : public AAIController
 {
 	GENERATED_BODY()
 	
+public:
+    void Possess(APawn* InPawn) override;
+    void OnMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result) override;
 	
-	
-	
+private:
+    void SearchNewPoint();
+
+    class AEnemy* Bot;
 };
