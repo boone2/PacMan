@@ -8,6 +8,7 @@
 #include "TimerManager.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "PacManCharacter.h"
+#include "EnemyController.h"
 
 
 // Sets default values
@@ -33,6 +34,8 @@ AEnemy::AEnemy()
 
     static ConstructorHelpers::FObjectFinder<UMaterial> VulnerableMatFinder(
         TEXT("Material'/Game/Materials/M_Vulnerable_Gray.M_Vulnerable_Gray''"));
+
+    AIControllerClass = AEnemyController::StaticClass();
 }
 
 // Called when the game starts or when spawned
@@ -77,8 +80,17 @@ void AEnemy::SetInvulnerable()
     GetCharacterMovement()->MaxWalkSpeed = 150;
 }
 
-void AEnemy::SetMove(bool MoveIt)
+void AEnemy::SetMove(bool bMoveIt)
 {
+    AEnemyController *EnemyController = Cast<AEnemyController>(AIControllerClass);
+    if (bMoveIt)
+    {
+        EnemyController->SearchNewPoint();
+    }
+    else
+    {
+        EnemyController->StopMovement();
+    }
 }
 
 void AEnemy::OnKilled()

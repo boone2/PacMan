@@ -17,11 +17,11 @@ class PACMAN_API AEnemyController : public AAIController
 public:
     void Possess(APawn* InPawn) override;
     void OnMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result) override;
+    void SearchNewPoint();
 
 private:
     void GoHome();
     void ReArm();
-    void SearchNewPoint();
 
     FTimerHandle DeadTimer;
 

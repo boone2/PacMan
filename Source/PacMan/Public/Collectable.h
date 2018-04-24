@@ -30,13 +30,13 @@ public:
 
 private:
     UPROPERTY(EditDefaultsOnly, Category = Collectable)
-	UStaticMeshComponent *MeshComponent;
+	UStaticMeshComponent *MeshComponent = nullptr;
 
     UPROPERTY(EditDefaultsOnly, Category = Collectable)
-    USphereComponent *CollisionComponent;
+    USphereComponent *CollisionComponent = nullptr;
 
     UPROPERTY(EditAnywhere, Category = Collectable)
-    bool bIsSupper;
+    bool bIsSupper = false;
 };
 
 FORCEINLINE bool ACollectable::IsSupper() const

@@ -40,8 +40,3 @@ FORCEINLINE EGameState APacManGameModeBase::GetCurrentState() const
 {
     return CurrentState;
 }
-
-FORCEINLINE void APacManGameModeBase::SetCurrentState(EGameState State)
-{
-    CurrentState = State;
-}

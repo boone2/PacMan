@@ -44,9 +44,9 @@ private:
     // Liftcycle
 public:
     void ReArm();
+    void SetMove(bool bMoveIt);
 
 private:
-    void SetMove(bool MoveIt);
     void OnKilled();
     void OnCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
                      int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
