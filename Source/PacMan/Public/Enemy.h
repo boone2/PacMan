@@ -29,6 +29,6 @@ public:
     // Components
 private:
     UPROPERTY(VisibleAnywhere, Category = Body)
-    UStaticMeshComponent *Body;
+    UStaticMeshComponent *Body{};
 	
 };
