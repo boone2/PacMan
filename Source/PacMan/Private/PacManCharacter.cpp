@@ -19,14 +19,16 @@ APacManCharacter::APacManCharacter()
 void APacManCharacter::BeginPlay()
 {
     Super::BeginPlay();
-
-    GameMode = Cast<APacManGameModeBase>(UGameplayStatics::GetGameMode(this));
-    GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &APacManCharacter::OnCollision);
-
+    
     for (TActorIterator<ACollectable> It(GetWorld()); It; ++It)
     {
         ++CollectablesNumToEat;
     }
+    HealthPoint = 3;
+    StartPoint = GetActorLocation();
+
+    GameMode = Cast<APacManGameModeBase>(UGameplayStatics::GetGameMode(this));
+    GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &APacManCharacter::OnCollision);    
 }
 
 // Called every frame
@@ -81,6 +83,18 @@ void APacManCharacter::Pause()
     else if (GameMode->GetCurrentState() == EGameState::Pause)
     {
         GameMode->SetCurrentState(EGameState::Playing);
+    }
+}
+
+void APacManCharacter::Kill()
+{
+    if (--HealthPoint == 0)
+    {
+        GameMode->SetCurrentState(EGameState::GameOver);
+    }
+    else
+    {
+        SetActorLocation(StartPoint);
     }
 }
 

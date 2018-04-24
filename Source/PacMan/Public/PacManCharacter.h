@@ -38,6 +38,7 @@ private:
     void ReStart();
     void NewGame();
     void Pause();
+    void Kill();
 
     APacManGameModeBase *GameMode;
 
@@ -50,4 +51,5 @@ private:
 private:
     int CollectablesNumToEat;
     int HealthPoint;
+    FVector StartPoint;
 };
