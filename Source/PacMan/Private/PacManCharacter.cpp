@@ -2,9 +2,9 @@
 
 #include "PacManCharacter.h"
 #include "Kismet/GamePlayStatics.h"
-#include "Components/CapsuleComponent.h"
 #include "Collectable.h"
 #include "EngineUtils.h"
+#include "Components/CapsuleComponent.h"
 
 
 // Sets default values
@@ -49,14 +49,20 @@ void APacManCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 void APacManCharacter::MoveX(float AxisValue)
 {
-    Velocity.X = AxisValue;
-    AddMovementInput(Velocity);
+    if (GameMode->GetCurrentState() == EGameState::Playing)
+    {
+        Velocity.X = AxisValue;
+        AddMovementInput(Velocity);
+    }
 }
 
 void APacManCharacter::MoveY(float AxisValue)
 {
-    Velocity.Y = AxisValue;
-    AddMovementInput(Velocity);
+    if (GameMode->GetCurrentState() == EGameState::Playing)
+    {
+        Velocity.Y = AxisValue;
+        AddMovementInput(Velocity);
+    }
 }
 
 void APacManCharacter::ReStart()

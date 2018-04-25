@@ -36,7 +36,7 @@ void AEnemyController::SearchNewPoint()
     UNavigationSystem* NavMesh = UNavigationSystem::GetCurrent(this);
     if (NavMesh)
     {
-        const float SearchRadius = 1000;
+        const float SearchRadius = 10000;
         FNavLocation RandomPoint;
         const bool bIsFound = NavMesh->GetRandomReachablePointInRadius(Bot->GetActorLocation(), SearchRadius, RandomPoint);
         if (bIsFound)

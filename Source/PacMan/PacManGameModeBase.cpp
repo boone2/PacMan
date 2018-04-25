@@ -51,7 +51,7 @@ void APacManGameModeBase::SetCurrentState(EGameState State)
             Enemy->Destroyed();
         }
         break;
-    case EGameState::GameOver: break;
-    default: ;
+    case EGameState::GameOver:
+        break;
     }
 }

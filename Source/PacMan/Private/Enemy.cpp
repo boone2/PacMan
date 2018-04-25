@@ -19,7 +19,7 @@ AEnemy::AEnemy()
 
     Body = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Body"));
     static ConstructorHelpers::FObjectFinder<UStaticMesh> CylinderObj(
-        TEXT("StaticMesh'/Game/StarterContent/Shapes/Shape_Cylinder'"));
+        TEXT("StaticMesh'/Game/StarterContent/Shapes/Shape_Cylinder.Shape_Cylinder'"));
     if (CylinderObj.Succeeded())
     {
         Body->SetStaticMesh(CylinderObj.Object);
@@ -33,7 +33,7 @@ AEnemy::AEnemy()
     GetCapsuleComponent()->SetCapsuleHalfHeight(50.0f);
 
     static ConstructorHelpers::FObjectFinder<UMaterial> VulnerableMatFinder(
-        TEXT("Material'/Game/Materials/M_Vulnerable_Gray.M_Vulnerable_Gray''"));
+        TEXT("Material'/Game/Materials/M_Vulnerable_Gray.M_Vulnerable_Gray'"));
 
     AIControllerClass = AEnemyController::StaticClass();
 }
@@ -82,7 +82,7 @@ void AEnemy::SetInvulnerable()
 
 void AEnemy::SetMove(bool bMoveIt)
 {
-    AEnemyController *EnemyController = Cast<AEnemyController>(AIControllerClass);
+    AEnemyController *EnemyController = Cast<AEnemyController>(GetController());
     if (bMoveIt)
     {
         EnemyController->SearchNewPoint();

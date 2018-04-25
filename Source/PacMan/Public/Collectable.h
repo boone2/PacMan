@@ -29,10 +29,10 @@ public:
     bool IsSupper() const;
 
 private:
-    UPROPERTY(EditDefaultsOnly, Category = Collectable)
+    UPROPERTY(VisibleAnywhere, Category = Collectable)
 	UStaticMeshComponent *MeshComponent = nullptr;
 
-    UPROPERTY(EditDefaultsOnly, Category = Collectable)
+    UPROPERTY(VisibleAnywhere, Category = Collectable)
     USphereComponent *CollisionComponent = nullptr;
 
     UPROPERTY(EditAnywhere, Category = Collectable)

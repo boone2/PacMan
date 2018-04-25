@@ -25,8 +25,6 @@ ACollectable::ACollectable()
     MeshComponent->SetWorldScale3D(FVector(0.3, 0.3, 0.3));
     CollisionComponent->SetSphereRadius(16);
 
-    MeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-
     SetRootComponent(CollisionComponent);
 }
 
