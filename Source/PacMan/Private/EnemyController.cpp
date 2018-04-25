@@ -34,6 +34,7 @@ void AEnemyController::ReArm()
 void AEnemyController::SearchNewPoint()
 {
     UNavigationSystem* NavMesh = UNavigationSystem::GetCurrent(this);
+    UE_LOG(LogTemp, Warning, TEXT("NavMesh is nullptr: %s"), NavMesh == nullptr ? TEXT("TRUE") : TEXT("FALSE"));
     if (NavMesh)
     {
         const float SearchRadius = 10000;
@@ -43,5 +44,6 @@ void AEnemyController::SearchNewPoint()
         {
             MoveToLocation(RandomPoint);
         }
+        UE_LOG(LogTemp, Warning, TEXT("Is found, %s, Location: %s"), bIsFound ? TEXT("TRUE") : TEXT("FALSE"), *RandomPoint.Location.ToString());
     }
 }
